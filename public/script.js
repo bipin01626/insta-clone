@@ -1,9 +1,7 @@
 const socket = io();
 
-// send text
 function sendText() {
-  let input = document.getElementById("msg");
-  let msg = input.value;
+  let msg = document.getElementById("msg").value;
 
   if (msg.trim() === "") return;
 
@@ -12,42 +10,32 @@ function sendText() {
     message: msg
   });
 
-  input.value = "";
+  document.getElementById("msg").value = "";
 }
 
-// emoji
 function addEmoji(e) {
   document.getElementById("msg").value += e;
 }
 
-// image send
 async function sendImage() {
   let file = document.getElementById("file").files[0];
 
-  if (!file) return alert("Select image");
-
-  let formData = new FormData();
-  formData.append("image", file);
+  let data = new FormData();
+  data.append("image", file);
 
   let res = await fetch("/upload", {
     method: "POST",
-    body: formData
+    body: data
   });
 
-  let data = await res.json();
+  let json = await res.json();
 
   socket.emit("chat message", {
     type: "image",
-    message: data.url
+    message: json.url
   });
 }
 
-// voice (basic)
-function recordVoice() {
-  alert("Voice feature coming soon 😄");
-}
-
-// receive message
 socket.on("chat message", (data) => {
   let li = document.createElement("li");
 
@@ -58,11 +46,5 @@ socket.on("chat message", (data) => {
   }
 
   document.getElementById("messages").appendChild(li);
-
   document.getElementById("sound").play();
-});
-
-// enter key
-document.getElementById("msg").addEventListener("keypress", (e) => {
-  if (e.key === "Enter") sendText();
 });

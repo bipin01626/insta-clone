@@ -2,6 +2,7 @@
 <html>
 <head>
   <title>Insta Chat</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="style.css">
 </head>
 
@@ -28,19 +29,15 @@
     <ul id="messages"></ul>
 
     <div class="input-box">
-
       <input id="msg" placeholder="Message..." type="text">
 
       <button onclick="addEmoji('😊')">😊</button>
       <button onclick="addEmoji('😂')">😂</button>
-      <button onclick="addEmoji('❤️')">❤️</button>
 
       <input type="file" id="file">
 
       <button onclick="sendText()">Send</button>
       <button onclick="sendImage()">📷</button>
-      <button onclick="recordVoice()">🎤</button>
-
     </div>
 
   </div>

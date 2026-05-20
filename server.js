@@ -20,13 +20,11 @@ app.post("/upload", upload.single("image"), (req, res) => {
   res.json({ url: "/uploads/" + req.file.filename });
 });
 
-// socket
+// chat
 io.on("connection", (socket) => {
-
   socket.on("chat message", (data) => {
     io.emit("chat message", data);
   });
-
 });
 
 const PORT = process.env.PORT || 3000;
